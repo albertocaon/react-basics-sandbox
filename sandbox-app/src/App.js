@@ -1,70 +1,60 @@
 import './App.css';
 import ParentToChild from "./components/ParentToChild/ParentToChild";
 import DefaultHeader from "./components/DefaultHeader/DefaultHeader";
+import Hooks from "./components/Hooks/Hooks";
+import Effects from "./Effects/Effects";
+import ProviderContext from "./components/ProviderContext/ProviderContext";
 
 function App() {
+
+  const menu = [
+    {
+      title: 'React Welcome',
+      component: <DefaultHeader />,
+      visible: false
+    },
+    {
+      title: 'ParentToChild',
+      component: <ParentToChild />,
+      visible: true
+    },
+    {
+      title: 'Hooks',
+      component: <Hooks />,
+      visible: false
+    },
+    {
+      title: 'Effects',
+      component: <Effects />,
+      visible: false
+    },
+    {
+      title: 'Provider & Context',
+      component: <ProviderContext />,
+      visible: false
+    }
+  ]
+  const select = (index) => {
+    menu.map(item => item.visible = false);
+    menu[index].visible = true;
+
+    console.log('selected', menu[index].title);
+    console.log('menu', menu);
+  }
+
+
+
   return (
     <div className="App">
-      <div className="md:flex">
-        <ul
-          className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
-          <li>
-            <a href="#"
-               className="inline-flex items-center px-4 py-3 text-white bg-blue-700 rounded-lg active w-full dark:bg-blue-600"
-               aria-current="page">
-              React Welcome
-            </a>
-          </li>
-          <li>
-            <a href="#"
-               className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-              ParentToChild
-            </a>
-          </li>
-          <li>
-            <a href="#"
-               className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-              Hooks
-            </a>
-          </li>
-          <li>
-            <a href="#"
-               className="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
-              Effects
-            </a>
-          </li>
-          <li>
-            <a
-              className="inline-flex items-center px-4 py-3 text-gray-400 rounded-lg cursor-not-allowed bg-gray-50 w-full dark:bg-gray-800 dark:text-gray-500">
-              Provider & Context
-            </a>
-          </li>
-        </ul>
-        <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">React Welcome</h3>
-          <DefaultHeader/>
-        </div>
-
-        <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">React Welcome</h3>
-          <ParentToChild />
-        </div>
-
-        <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">React Welcome</h3>
-          <DefaultHeader/>
-        </div>
-
-        <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">React Welcome</h3>
-          <DefaultHeader/>
-        </div>
-
-        <div className="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">React Welcome</h3>
-          <DefaultHeader/>
-        </div>
-      </div>
+      <ul
+        className="menu">
+        {menu && menu.map((item, index) => {
+          return <li key={index} className={item.visible ? 'selected' : ''} onClick={() => select(index)}>{item.title}</li>
+        })}
+      </ul>
+      {menu.map((item) => {
+        return item.visible && <div key={item.title}>{item.component}</div>;
+      })}
     </div>
   );
 }
