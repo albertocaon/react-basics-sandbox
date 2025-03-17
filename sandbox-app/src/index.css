@@ -25,20 +25,23 @@ ul {
     background-color: #003b57;
     color: white;
     padding: 0 20px;
-    height: 60px;
+    height: 90px;
 }
 
 .menu > li {
-    padding: 15px 20px;
+    padding: 0 20px;
     text-decoration: none;
     color: white;
     display: flex;
     align-items: center;
     background-color: #003b57;
+    height: 100%;
 }
 
 .menu > li.selected {
-    border-bottom: 2px solid #ef4;
+    border-bottom: 4px solid #4ef;
+    font-weight: bold;
+    color: #4ef;
 }
 
 .message {
@@ -47,4 +50,14 @@ ul {
     padding: 10px;
     margin: 20px;
     background-color: #61dafb;
+}
+
+.exercise {
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 20px;
+    background-color: #efefef;
+    color: #333;
+    text-align: left;
 }

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 import ParentToChild from "./components/ParentToChild/ParentToChild";
 import DefaultHeader from "./components/DefaultHeader/DefaultHeader";
@@ -7,16 +8,16 @@ import ProviderContext from "./components/ProviderContext/ProviderContext";
 
 function App() {
 
-  const menu = [
+  const [menu, setMenu] = useState([
     {
       title: 'React Welcome',
       component: <DefaultHeader />,
-      visible: false
+      visible: true
     },
     {
-      title: 'ParentToChild',
+      title: 'Data Flow',
       component: <ParentToChild />,
-      visible: true
+      visible: false
     },
     {
       title: 'Hooks',
@@ -33,13 +34,14 @@ function App() {
       component: <ProviderContext />,
       visible: false
     }
-  ]
+  ]);
   const select = (index) => {
-    menu.map(item => item.visible = false);
-    menu[index].visible = true;
-
-    console.log('selected', menu[index].title);
-    console.log('menu', menu);
+    const updatedMenu = menu.map((item, i) => ({
+      ...item,
+      visible: i === index
+    }));
+    setMenu(updatedMenu);
+    document.title = menu[index].title;
   }
 
 
@@ -52,9 +54,7 @@ function App() {
           return <li key={index} className={item.visible ? 'selected' : ''} onClick={() => select(index)}>{item.title}</li>
         })}
       </ul>
-      {menu.map((item) => {
-        return item.visible && <div key={item.title}>{item.component}</div>;
-      })}
+      {menu.find((item) => item.visible).component}
     </div>
   );
 }
