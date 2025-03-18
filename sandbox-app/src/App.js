@@ -33,6 +33,11 @@ function App() {
       title: 'Provider & Context',
       component: <ProviderContext />,
       visible: false
+    },
+    {
+      title: 'Workshop Exercise',
+      component: <p>Workshop Exercise</p>,
+      visible: false
     }
   ]);
   const select = (index) => {
